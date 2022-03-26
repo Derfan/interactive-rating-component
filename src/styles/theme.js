@@ -12,4 +12,5 @@ export const theme = {
         darkBlue: 'hsl(213, 19%, 18%)',
         veryDarkBlue: 'hsl(216, 12%, 8%)',
     },
+    transition: 'all .3s ease-in-out',
 };
