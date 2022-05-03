@@ -1,5 +1,17 @@
 import styled, { css } from 'styled-components';
 
+const sizes = {
+    md: '768px',
+};
+
+const devices = {
+    tablet: `(min-width: ${sizes.md})`,
+};
+
+const flipCss = css`
+    transform: rotateY(180deg);
+`;
+
 const flexCenterAll = css`
     display: flex;
     align-items: center;
@@ -7,9 +19,12 @@ const flexCenterAll = css`
 `;
 
 export const Layout = styled.div`
-    ${flexCenterAll}
-    padding: 24px;
-    height: 100vh;
+    position: relative;
+    margin: 154px 24px 24px;
+
+    @media ${devices.tablet} {
+        margin-top: 195px;
+    }
 `;
 
 export const Button = styled.button`
@@ -19,7 +34,7 @@ export const Button = styled.button`
     background-color: ${props => props.theme.colors.primary};
     border-radius: 25px;
     border: none;
-    margin: 24px 0 0;
+    margin: 23px 0 0;
 
     text-transform: uppercase;
     font-weight: ${props => props.theme.fontWeight.bold};
@@ -31,9 +46,33 @@ export const Button = styled.button`
         color: ${props => props.theme.colors.primary};
         background-color: ${props => props.theme.colors.white};
     }
+
+    @media ${devices.tablet} {
+        margin: 33px 0 0;
+    }
+`;
+
+export const FlipCard = styled.div`
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    transform-style: preserve-3d;
+    transform: ${props => props.showBack ? 'rotateY(180deg)' : ''};
+    transition: transform 1s;
+
+    @media ${devices.tablet} {
+        max-width: 410px;
+        left: 50%;
+        transform: translateX(-50%) ${props => props.showBack ? 'rotateY(180deg)' : ''};
+    }
 `;
 
 export const Card = styled.div`
+    position: absolute;
+    top: 0;
+    width: 100%;
+
     display: flex;
     flex-direction: column;
     align-items: ${props => props.alignment};
@@ -41,6 +80,14 @@ export const Card = styled.div`
     padding: 24px 24px 32px;
     border-radius: 15px;
     background: radial-gradient(ellipse at top, ${props => props.theme.colors.darkBlue}, transparent);
+
+    backface-visibility: hidden;
+    transform: rotateY(${props => props.location === 'back' ? '180deg' : 0});
+
+    @media ${devices.tablet} {
+        border-radius: 28px;
+        padding: 32px 30px;
+    }
 `;
 
 export const Round = styled.div`
@@ -49,7 +96,24 @@ export const Round = styled.div`
     border-radius: 50%;
     width: 40px;
     height: 40px;
-    background-color: ${props => props.theme.colors.darkBlue}
+    background-color: ${props => props.theme.colors.darkBlue};
+
+    @media ${devices.tablet} {
+        width: 48px;
+        height: 48px;
+    }
+`;
+
+export const Title = styled.h1`
+    margin: 20px 0 0;
+    font-size: 24px;
+    color: ${props => props.theme.colors.white};
+    font-weight: ${props => props.theme.fontWeight.bold};
+
+    @media ${devices.tablet} {
+        margin: 32px 0 0;
+        font-size: 28px;
+    }
 `;
 
 export const Text = styled.p`
@@ -58,13 +122,11 @@ export const Text = styled.p`
     text-align: ${props => props.alignment};
     font-size: 14px;
     line-height: 1.6;
-`;
 
-export const Title = styled.h1`
-    margin: 20px 0 0;
-    font-size: 24px;
-    color: ${props => props.theme.colors.white};
-    font-weight: ${props => props.theme.fontWeight.bold};
+    @media ${devices.tablet} {
+        font-size: 16px;
+        line-height: 1.5;
+    }
 `;
 
 export const RadioList = styled.div`
@@ -104,13 +166,36 @@ export const RadioButton = styled.div`
             color: ${props => props.theme.colors.white};
             background-color: ${props => props.theme.colors.lightGrey};
         }
+
+        @media ${devices.tablet} {
+            width: 50px;
+            height: 50px;
+        }
     }
 `;
 
 export const Badge = styled.div`
+    font-size: 14px;
     color: ${props => props.theme.colors.primary};
 
-    padding: 5px 10px;
+    margin: 18px 0 7px;
+    padding: 7px 12px;
     background-color: ${props => props.theme.colors.darkBlue};
     border-radius: 15px;
+
+    @media ${devices.tablet} {
+        font-size: 15px;
+
+        margin: 27px 0 4px;
+        padding: 7px 18px;
+    }
+`;
+
+export const ImageWrapper = styled.div`
+    margin-top: 10px;
+    max-width: 145px;
+
+    @media ${devices.tablet} {
+        max-width: 165px;
+    }
 `;

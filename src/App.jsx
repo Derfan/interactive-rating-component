@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Layout, Card, Round, Title, Text, Button, RadioList, RadioButton, Badge } from './components';
+import { Layout, FlipCard, Card, Round, Title, Text, Button, RadioList, RadioButton, Badge, ImageWrapper } from './components';
 import { Star, ThankYou } from './images';
 
 const values = [1, 2, 3, 4, 5];
@@ -22,15 +22,6 @@ const RadioGroupInput = ({ name, values, initialValue, onChange }) => {
     )
 };
 
-const ThankYouCard = ({ rating }) => (
-    <Card alignment="center">
-        <ThankYou />
-        <Badge>You selected {rating} out of 5</Badge>
-        <Title>Thank you!</Title>
-        <Text alignment="center">We appreciate you taking the time to give a rating. If you ever need more support, don’t hesitate to get in touch!</Text>
-    </Card>
-);
-
 const RatingCard = ({ onSubmit }) => {
     const [rating, setRating] = useState(null);
 
@@ -41,7 +32,7 @@ const RatingCard = ({ onSubmit }) => {
     };
 
     return (
-        <Card alignment="flex-start">
+        <Card alignment="flex-start" location="front">
             <Round>
                 <Star />
             </Round>
@@ -53,15 +44,26 @@ const RatingCard = ({ onSubmit }) => {
     );
 };
 
+const ThankYouCard = ({ rating }) => (
+    <Card alignment="center" location="back">
+        <ImageWrapper>
+            <ThankYou width="100%" />
+        </ImageWrapper>
+        <Badge>You selected {rating} out of 5</Badge>
+        <Title>Thank you!</Title>
+        <Text alignment="center">We appreciate you taking the time to give a rating. If you ever need more support, don’t hesitate to get in touch!</Text>
+    </Card>
+);
+
 export const App = () => {
     const [rating, setRating] = useState(null);
 
     return (
         <Layout>
-            {rating
-                ? <ThankYouCard rating={rating} />
-                : <RatingCard onSubmit={setRating} />
-            }
+            <FlipCard showBack={!!rating}>
+                <RatingCard onSubmit={setRating} />
+                <ThankYouCard rating={rating} />
+            </FlipCard>
         </Layout>
     );
 };
