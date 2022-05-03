@@ -8,10 +8,6 @@ const devices = {
     tablet: `(min-width: ${sizes.md})`,
 };
 
-const flipCss = css`
-    transform: rotateY(180deg);
-`;
-
 const flexCenterAll = css`
     display: flex;
     align-items: center;
